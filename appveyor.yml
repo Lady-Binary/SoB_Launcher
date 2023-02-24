@@ -1,0 +1,59 @@
+version: 0.1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - main
+skip_tags: true
+skip_commits:
+  message: /bump version and update changelog/
+image: Visual Studio 2017
+configuration: Release
+platform: x64
+clone_folder: c:\SoB_Launcher
+assembly_info:
+  patch: true
+  file: 'SoB_Launcher\Properties\AssemblyInfo.cs'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+environment:
+  GITHUB_TOKEN:
+    secure: sqTYrWpGf17/5azepe0y67oNb6bB4rWC8S7g2Ck1v3Mvkuyz7QuTn8Q2gpVqFciz
+build:
+  project: c:\SoB_Launcher\SoB_Launcher.sln
+  verbosity: minimal
+after_build:
+- ps: >-
+    $artifact = "SoB_Launcher-$env:APPVEYOR_BUILD_VERSION.zip"
+
+
+    7z a -tzip $artifact $pwd\SoB_Launcher\bin\x64\Release\SoB_Launcher.exe
+artifacts:
+- path: SoB_Launcher-$(APPVEYOR_BUILD_VERSION).zip
+deploy:
+- provider: GitHub
+  tag: $(APPVEYOR_BUILD_VERSION)
+  release: SoB_Launcher v$(APPVEYOR_BUILD_VERSION)
+  auth_token:
+    secure: sqTYrWpGf17/5azepe0y67oNb6bB4rWC8S7g2Ck1v3Mvkuyz7QuTn8Q2gpVqFciz
+  artifact: SoB_Launcher-$(APPVEYOR_BUILD_VERSION).zip
+  on:
+    branch: main
+after_deploy:
+- ps: >-
+    git config --global credential.helper store
+
+    Add-Content -Path "$HOME\.git-credentials" -Value "https://$($env:GITHUB_TOKEN):x-oauth-basic@github.com`n" -NoNewline
+
+    git config --global user.email "ladybinary@protonmail.com"
+
+    git config --global user.name "AppVeyor"
+
+    git checkout main -q
+
+    git add ./*AssemblyInfo.cs
+
+    git commit -m "bump version"
+
+    git push -q
