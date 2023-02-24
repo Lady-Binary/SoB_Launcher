@@ -111,13 +111,15 @@ namespace SoB_Launcher
             Debug("Searching for Legends of Aria.exe within the current directory...");
             var currentFullPath = Process.GetCurrentProcess().MainModule?.FileName;
             var currentDirectory = Path.GetDirectoryName(currentFullPath);
+            currentDirectory = @"E:\Legends of Aria-1.4.1.0\Legends of Aria";
             Debug($"...current directory: {currentDirectory}...");
             var ariaFullPath = $"{currentDirectory}\\Legends of Aria.exe";
             if (!File.Exists(ariaFullPath))
             {
+
                 Log($"Could not find \"Legends of Aria.exe\" in the current folder {currentDirectory}!");
                 Log();
-                Log("Better SoB Launcher must be run from the same directory where \"Legends of Aria.exe\" resides.");
+                Log("(Better\u2122) SoB Launcher must be run from the same directory where \"Legends of Aria.exe\" resides.");
                 Log("This could be for instance \"C:\\Games\\Shards of Britannia\\\".");
                 Log();
                 Log("If the official \"SoB_Launcher.exe\" executable is also present in that folder, then rename it to");
@@ -215,7 +217,7 @@ namespace SoB_Launcher
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Log();
-            Log($"Better SoB Launcher v{version} - made by Lady Binary with \u2665");
+            Log($"(Better\u2122) SoB Launcher v{version} - made by Lady Binary with \u2665");
             Log();
 
             ParseCommandLineParams(args);
