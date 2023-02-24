@@ -6,7 +6,7 @@ branches:
   - main
 skip_tags: true
 skip_commits:
-  message: /bump version and update changelog/
+  message: /bump version/
 image: Visual Studio 2017
 configuration: Release
 platform: x64
@@ -19,7 +19,7 @@ assembly_info:
   assembly_informational_version: '{version}'
 environment:
   GITHUB_TOKEN:
-    secure: sqTYrWpGf17/5azepe0y67oNb6bB4rWC8S7g2Ck1v3Mvkuyz7QuTn8Q2gpVqFciz
+    secure: mPV5k4Dfx3gXB1zFlC373VKWr1ZsTfTkKF3HqKhborSDolrI3FFJ53t2AnavsXxx
 build:
   project: c:\SoB_Launcher\SoB_Launcher.sln
   verbosity: minimal
@@ -36,7 +36,7 @@ deploy:
   tag: $(APPVEYOR_BUILD_VERSION)
   release: SoB_Launcher v$(APPVEYOR_BUILD_VERSION)
   auth_token:
-    secure: sqTYrWpGf17/5azepe0y67oNb6bB4rWC8S7g2Ck1v3Mvkuyz7QuTn8Q2gpVqFciz
+    secure: mPV5k4Dfx3gXB1zFlC373VKWr1ZsTfTkKF3HqKhborSDolrI3FFJ53t2AnavsXxx
   artifact: SoB_Launcher-$(APPVEYOR_BUILD_VERSION).zip
   on:
     branch: main
