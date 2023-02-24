@@ -111,7 +111,6 @@ namespace SoB_Launcher
             Debug("Searching for Legends of Aria.exe within the current directory...");
             var currentFullPath = Process.GetCurrentProcess().MainModule?.FileName;
             var currentDirectory = Path.GetDirectoryName(currentFullPath);
-            currentDirectory = @"E:\Legends of Aria-1.4.1.0\Legends of Aria";
             Debug($"...current directory: {currentDirectory}...");
             var ariaFullPath = $"{currentDirectory}\\Legends of Aria.exe";
             if (!File.Exists(ariaFullPath))
